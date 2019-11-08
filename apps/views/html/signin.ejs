@@ -18,6 +18,10 @@
 					</div>
 					<div class="panel panel-body">
 						<form method="POST" action="/signin">
+							<div class="alert alert-danger" style=<% if (!message.err) {%>"display: none;"<%}%>>
+								<p>Error:</p>
+								<span><%=message.err%></span>
+							</div>
 							<div class="form-group">
 								<label for="username">Username:</label>
 								<input type="text" class="form-control" name="username">
