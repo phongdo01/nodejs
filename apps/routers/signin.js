@@ -3,6 +3,7 @@ const router = app.Router()
 const con = require('../config/connection').connection
 const userController = require('../controllers/user')
 router.get('/', function (req, res) {
+    req.session.count = ++req.session.count||0
     res.render('signin', {message:{}})
 })
 router.post('/', function (req, res) {
@@ -31,8 +32,8 @@ router.post('/', function (req, res) {
         {
             const v = userController.insertUser(data)
             v.then(rs=>{
-                console.log('liu tiu')
-                res.render('signin', {message:{}})
+                console.log('session: ', req.session.count)
+                res.redirect('/signin')
             }).catch(err=>{throw err})
         }
 })
