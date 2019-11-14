@@ -16,7 +16,8 @@
     <div class="container">
         <p id="thep">hehe</p>
         <div class="row" id="chatbox">
-
+            <ul id="chatContent">
+            </ul>
         </div>
         <div id="inputArea" class="row">
             <form class="form-inline">
@@ -31,6 +32,12 @@
     socket.on("connect", function(){
         console.log('connected')
     })
+    let userName = prompt('What is your name?')
+    $('#chatContent').append("<li>Hello "+userName+"</li>")
+    var data = {
+        content: "this is data"
+    }
+    socket.emit("getUserName", {userName})
     </script>
 </body>
 
