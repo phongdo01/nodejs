@@ -11,7 +11,10 @@ app.use(session({
 app.use(router)
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views/html')
-app.use('static', express.static(__dirname + '/views'))
-app.listen(5000, function () {
+app.use('/static', express.static(__dirname + '/views'))
+const server = app.listen(5000, function () {
     console.log('listened')
 })
+
+const io = require('socket.io')(server)
+require('./controllers/socket')(io)

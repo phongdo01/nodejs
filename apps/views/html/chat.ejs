@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chatting</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/chat.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <p id="thep">hehe</p>
+        <div class="row" id="chatbox">
+
+        </div>
+        <div id="inputArea" class="row">
+            <form class="form-inline">
+                <input type="text" class="form-control" id="inputText"/>
+                <button class="btn btn-success d-inline">Send</button>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
+    <script type="text/javascript">
+    const socket = io.connect('http://localhost:5000')
+    socket.on("connect", function(){
+        console.log('connected')
+    })
+    </script>
+</body>
+
+</html>
