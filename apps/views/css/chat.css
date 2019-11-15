@@ -25,6 +25,6 @@
     border-bottom-right-radius: 5px;
 }
 #inputText {
-    width: 490px;
+    width: 85%;
     overflow: scroll;
 }

@@ -16,28 +16,48 @@
     <div class="container">
         <p id="thep">hehe</p>
         <div class="row" id="chatbox">
-            <ul id="chatContent">
+            <ul id="chatContent" class="list-group">
             </ul>
         </div>
         <div id="inputArea" class="row">
             <form class="form-inline">
-                <input type="text" class="form-control" id="inputText"/>
-                <button class="btn btn-success d-inline">Send</button>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="inputText" />
+                    <button class="btn btn-success d-inline" id="send">Send</button>
+                </div>
+
             </form>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.dev.js"></script>
     <script type="text/javascript">
-    const socket = io.connect('http://localhost:5000')
-    socket.on("connect", function(){
-        console.log('connected')
-    })
-    let userName = prompt('What is your name?')
-    $('#chatContent').append("<li>Hello "+userName+"</li>")
-    var data = {
-        content: "this is data"
-    }
-    socket.emit("getUserName", {userName})
+        const socket = io.connect('http://localhost:5000')
+        socket.on('connect', function () {
+            console.log('connected')
+        })
+        let userName = prompt('What is your name?')
+        socket.emit("getUserName", { userName })
+        socket.on("welcome", function (data) {
+            const userName = data
+            $('#chatContent').append("<li class = \"list-group-item list-group-item-info\">Hello " + data + "</li>")
+        })
+        socket.on("newUser", function (data) {
+            $("#chatContent").append("<li class=\"list-group-item list-group-item-light text-right\">" + data + " joined in chatroom</li>")
+        })
+        $('form').submit(function (e) {
+            e.preventDefault();
+            $('#inputText').val('')
+            return false
+        })
+        $('#send').click(function () {
+            const content = $('#inputText').val()
+            console.log('val: ', content)
+            socket.emit("sendMessege", content)
+        })
+        socket.on('showMessage', function (data) {
+            console.log('datra: ', data)
+            $('#chatContent').append("<li class = \"list-group-item list-group-item-info\">You: " + data + "</li>")
+        })
     </script>
 </body>
 
